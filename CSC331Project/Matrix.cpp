@@ -7,14 +7,15 @@
 // matrix elements to random numbers between 1 and 10.
 Matrix::Matrix() : _rows(3), _columns(3)
 {
+	_data = new int[_rows * _columns];
+
 	this->initializeMatrixData();
 }
 
 // Constructor with parameters, also initializes the matrix elements to random numbers.
 Matrix::Matrix(int columns, int rows)
 {
-	_columns = columns;
-	_rows = rows;
+	_data = new int[columns * rows];
 
 	this->initializeMatrixData();
 };
@@ -29,8 +30,6 @@ Matrix::~Matrix()
 void Matrix::initializeMatrixData()
 {
 	const int matrixSize = _rows * _columns;
-
-	_data = new int[matrixSize];
 
 	for (int i = 0; i < _rows; i++)
 	{
@@ -105,14 +104,14 @@ Matrix Matrix::multiply(Matrix matrix)
 	return matrixToReturn;
 }
 
-std::ostream& operator<<(std::ostream& outputStream, Matrix matrix)
+std::ostream& operator<<(std::ostream& outputStream, Matrix& matrix)
 {
 
 	outputStream << "";
 
-	for (int i = 0; i <= matrix._rows - 1; i++)
+	for (int i = 0; i <= matrix.getRows() - 1; i++)
 	{
-		for (int j = 0; j <= matrix._columns - 1; j++)
+		for (int j = 0; j <= matrix.getColumns() - 1; j++)
 		{
 			if (j == 0)
 			{
@@ -121,7 +120,7 @@ std::ostream& operator<<(std::ostream& outputStream, Matrix matrix)
 
 			outputStream << std::setw(2) << matrix.getElement(i, j);
 
-			if (j == matrix._columns - 1)
+			if (j == matrix.getColumns() - 1)
 			{
 				outputStream << "]" << std::endl;
 			}
