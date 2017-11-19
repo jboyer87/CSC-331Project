@@ -16,7 +16,7 @@ __The Matrix class must also have the following member functions:__
 4. [x] A method called display() that displays the matrix in proper row/column form.
 5. [x] The method getElement(int i, int j) that will return the (i,j) element in the matrix. Include exception handling with object out_of_range for the case when i or j or both are out of bounds
 6. [x] The method setElement ( int i, int j, int value) that set the (i,j) element of the matrix to the value. Include exception handling with object out_of_range for the case when i or j or both are out of bounds.
-7. [ ] The method for the addition of one matrix object to another add(Matrix a) that receives a Matrix object a and adds it to the implicit object and returns another Matrix object. Include exceptions if matrices cannot be added ( e.g. in the case of incompatible types or dimensions)
+7. [x] The method for the addition of one matrix object to another add(Matrix a) that receives a Matrix object a and adds it to the implicit object and returns another Matrix object. Include exceptions if matrices cannot be added ( e.g. in the case of incompatible types or dimensions)
 8. [ ] The method multiply( Matrix a) that receives a Matrix object and multiplies it to the implicit object and returns another Matrix object. Include exceptions if matrices cannot be multiplies (incompatible dimensions). An algorithm for matrix multiplication is given on page 205 of your textbook.
 9. [x] Overload the out stream operator “<<” for the Matrix class to display a Matrix Object
 10. [ ] Overload the in stream operator “>>” for the Matrix class to receive elements for a Matrix object.
@@ -28,6 +28,5 @@ __Write a main(…) method to text the Matrix class. The main(…) method must i
 3. [x] Test the exceptions by using invalid parameters
 4. [x] Use the operator “<<”to print both matrices.
 5. [ ] Use the operator “>>” change the values of one of the matrices. Print the new matrix.
-6. [ ] Call the add method and display the result.
+6. [x] Call the add method and display the result.
 7. [ ] Call the multiply method and display the result.
-

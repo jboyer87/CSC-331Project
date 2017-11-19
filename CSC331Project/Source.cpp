@@ -7,7 +7,7 @@ int main() {
 	// additional constructur with parameters to specify a 3x3 matrix.
 	Matrix matrix1;
 
-	Matrix matrix2 = Matrix(3, 3);
+	Matrix matrix2 = Matrix(4, 4);
 
 	// Testing get and set methods. First, get element, then set it to something new,
 	// then get the same element again to show that it has changed.
@@ -43,8 +43,7 @@ int main() {
 	// Try to add two matrices together
 	try
 	{
-		Matrix sumOfTwo = matrix1.add(matrix2);
-		std::cout << sumOfTwo;
+		std::cout << matrix1.add(matrix2);
 	}
 	catch (const std::invalid_argument &exception)
 	{

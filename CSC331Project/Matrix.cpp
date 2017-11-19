@@ -102,7 +102,7 @@ void Matrix::display()
 }
 
 // TODO Implement
-Matrix Matrix::add(Matrix inputMatrix)
+Matrix Matrix::add(Matrix &inputMatrix)
 {
 	// Make sure they are the same size and throw an exception if not
 	if (_rows != inputMatrix._rows || _columns != inputMatrix._columns)
@@ -110,18 +110,16 @@ Matrix Matrix::add(Matrix inputMatrix)
 		throw std::invalid_argument("The number of rows and columns between matrix objects must be equal.");
 	}
 
-	Matrix *sum = new Matrix(3, 3);
+	for (int i = 0; i < _rows; i++)
+	{
+		for (int j = 0; j < _columns; j++)
+		{
+			// Add the two integers and stuff it into the matrix at the correct position
+			this->setElement(i, j, (this->getElement(i, j)+inputMatrix.getElement(i, j)));
+		}
+	}
 
-	//for (int i = 0; i < _rows; i++)
-	//{
-	//	for (int j = 0; j < _columns; j++)
-	//	{
-	//		// Add the two integers and stuff it into the matrix at the correct position
-	//		sum.setElement(i, j, 1);
-	//	}
-	//}
-
-	return *sum;
+	return *this;
 }
 
 // TODO Implement
@@ -163,27 +161,4 @@ std::ostream& operator<<(std::ostream& outputStream, Matrix& matrix)
 std::istream& operator>>(std::istream& inputStream, Matrix& matrix)
 {
 	return inputStream;
-}
-
-// Adds two matrix objects together
-Matrix Matrix::operator+(Matrix right)
-{
-	// Make sure they are the same size and throw an exception if not
-	if (_rows != right._rows || _columns != right._columns)
-	{
-		throw std::invalid_argument("The number of rows and columns between matrix objects must be equal.");
-	}
-
-	Matrix sum = Matrix(_columns, _rows);
-
-	//for (int i = 0; i < _rows; i++)
-	//{
-	//	for (int j = 0; j < _columns; j++)
-	//	{
-	//		// Add the two integers and stuff it into the matrix at the correct position
-	//		sum.setElement(i, j, (this->getElement(i, j) + right.getElement(i, j)));
-	//	}
-	//}
-	
-	return sum;
 }
