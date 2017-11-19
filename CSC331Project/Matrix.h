@@ -9,6 +9,8 @@ public:
 
 	virtual ~Matrix();
 
+	Matrix::Matrix(const Matrix& matrix);
+
 	int Matrix::getRows()
 	{
 		return _rows;
@@ -29,6 +31,9 @@ public:
 	Matrix multiply(Matrix matrix);
 
 	friend std::ostream& operator<<(std::ostream& outputStream, Matrix& matrix);
+	friend std::istream& operator>>(std::istream& inputStream, Matrix& matrix);
+
+	Matrix Matrix::operator+(Matrix right);
 
 private:
 	int _columns;

@@ -12,7 +12,7 @@ __The Matrix class must have the following private data members at least:__
 __The Matrix class must also have the following member functions:__
 1. [x] A default constructor – this constructor initializes the row and column of the matrix to 3, then dynamically allocates memory for the elements of the matrix. The constructor also initializes the Matrix elements to random integers between 0 and 10.
 2. [x] A constructor with parameters - The parameters to the constructor are used to initialize the row and column variables. This constructor dynamically allocates memory for the elements of the matrix. The constructor also initializes the Matrix elements to random integers between 0 and 10.
-3. [ ] A correct destructor.
+3. [x] A correct destructor.
 4. [x] A method called display() that displays the matrix in proper row/column form.
 5. [x] The method getElement(int i, int j) that will return the (i,j) element in the matrix. Include exception handling with object out_of_range for the case when i or j or both are out of bounds
 6. [x] The method setElement ( int i, int j, int value) that set the (i,j) element of the matrix to the value. Include exception handling with object out_of_range for the case when i or j or both are out of bounds.
