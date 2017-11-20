@@ -28,13 +28,6 @@ Matrix::~Matrix()
 	delete[] _data;
 };
 
-Matrix::Matrix(const Matrix& matrix) 
-{
-	_rows = matrix._rows;
-	_columns = matrix._columns;
-	_data = matrix._data;
-}
-
 // Function to initialize the matrix data with random integers between 0 and 10.
 void Matrix::initializeMatrixData()
 {
@@ -101,7 +94,7 @@ void Matrix::display()
 	}
 }
 
-// TODO Implement
+// Adds one matrix to another and returns the result
 Matrix Matrix::add(Matrix &inputMatrix)
 {
 	// Make sure they are the same size and throw an exception if not
@@ -110,23 +103,48 @@ Matrix Matrix::add(Matrix &inputMatrix)
 		throw std::invalid_argument("The number of rows and columns between matrix objects must be equal.");
 	}
 
+	Matrix *temp = new Matrix(_columns, _rows);
+
 	for (int i = 0; i < _rows; i++)
 	{
 		for (int j = 0; j < _columns; j++)
 		{
 			// Add the two integers and stuff it into the matrix at the correct position
-			this->setElement(i, j, (this->getElement(i, j)+inputMatrix.getElement(i, j)));
+			temp->setElement(i, j, (this->getElement(i, j)+inputMatrix.getElement(i, j)));
 		}
 	}
 
-	return *this;
+	return *temp;
 }
 
-// TODO Implement
-Matrix Matrix::multiply(Matrix matrix)
+// Multiplies one matrix by another and returns the result
+Matrix Matrix::multiply(Matrix &inputMatrix)
 {
-	Matrix matrixToReturn;
-	return matrixToReturn;
+	// Make sure they are able to be multiplied and throw an exception if not
+	if (_columns != inputMatrix._rows)
+	{
+		throw std::invalid_argument("The number of columns in the first matrix must match the number of rows in the second matrix.");
+	}
+
+	// Final matrix will be rows = rows of the first and columns = columns of the second
+	Matrix *temp = new Matrix(inputMatrix._columns, this->_rows);
+
+	for (int i = 0; i < this->_rows; i++)
+	{
+		for (int j = 0; j < inputMatrix._columns; j++)
+		{
+			int sum = 0;
+
+			for (int k = 0; k < inputMatrix._rows; k++)
+			{
+				sum += this->getElement(i,k) * inputMatrix.getElement(k, j);
+			}
+
+			temp->setElement(i, j, (sum));
+		}
+	}
+
+	return *temp;
 }
 
 std::ostream& operator<<(std::ostream& outputStream, Matrix& matrix)
