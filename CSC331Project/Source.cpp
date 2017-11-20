@@ -15,13 +15,13 @@ int main() {
 	// Testing get and set methods. First, get element, then set it to something new,
 	// then get the same element again to show that it has changed.
 	std::cout << "Testing get method..." << std::endl << std::endl;
-	std::cout << "Initial value at [0,0]: " << matrix1.getElement(0, 0) << std::endl << std::endl;
+	std::cout << "\tInitial value at [0,0]: " << matrix1.getElement(0, 0) << std::endl << std::endl;
 
 	std::cout << "Testing set method..." << std::endl << std::endl;
 	
 	matrix1.setElement(0, 0, 11);
 
-	std::cout << "New value at [0,0]: " << matrix1.getElement(0, 0) << std::endl << std::endl;
+	std::cout << "\tNew value at [0,0]: " << matrix1.getElement(0, 0) << std::endl << std::endl;
 
 	std::cout << "Trying to retrieve out of range element..." << std::endl << std::endl;
 
@@ -33,7 +33,7 @@ int main() {
 	}
 	catch (const std::out_of_range &exception)
 	{
-		std::cout << exception.what() << std::endl << std::endl;
+		std::cout << "\t" << exception.what() << std::endl << std::endl;
 	}
 	
 	std::cout << "Trying to set out of range element..." << std::endl << std::endl;
@@ -45,27 +45,26 @@ int main() {
 	}
 	catch (const std::out_of_range &exception)
 	{
-		std::cout << exception.what() << std::endl << std::endl;
+		std::cout << "\t" << exception.what() << std::endl << std::endl;
 	}
 
-	// Calling display via cout to display both matrixes
+	// Calling overloaded cout to display both matrixes in row/column form. Program also includes a display() method
+	// that can be called with matrix1.display()
 	std::cout << "Testing printing both matrices..." << std::endl << std::endl;
 
-	std::cout << matrix1 << std::endl << std::endl;
-	std::cout << matrix2 << std::endl << std::endl;
+	std::cout << matrix1 << std::endl;
+	std::cout << matrix2 << std::endl;
 
 	std::cout << "Testing adding both matrices together..." << std::endl << std::endl;
 
 	// Try to add two matrices together
 	try
 	{
-		Matrix matrix3 = matrix1.add(matrix2);
-
-		std::cout << matrix3;
+		std::cout << matrix1.add(matrix2) << std::endl;
 	}
 	catch (const std::invalid_argument &exception)
 	{
-		std::cout << exception.what() << std::endl << std::endl;
+		std::cout << "\t" << exception.what() << std::endl << std::endl;
 	}
 
 	std::cout << "Testing multiplying both matrices together..." << std::endl << std::endl;
@@ -73,14 +72,70 @@ int main() {
 	// Try to multiply two matrices together
 	try
 	{
-		std::cout << matrix1.multiply(matrix2);
+		std::cout << matrix1.multiply(matrix2) << std::endl;
 	}
 	catch (const std::invalid_argument &exception)
 	{
-		std::cout << exception.what() << std::endl << std::endl;
+		std::cout << "\t" << exception.what() << std::endl << std::endl;
 	}
 
-	std::cout << "Done!" << std::endl << std::endl;
+
+	// Create a matrix from user input
+	std::cout << "Now let's create a matrix." << std::endl << std::endl;
+
+	int columns = 0;
+	int rows = 0;
+
+	// Take the number of columns
+	std::cout << "Enter the number of columns: ";
+	std::cin >> columns;
+
+	// Take the number of rows
+	std::cout << "Enter the number of rows: ";
+	std::cin >> rows;
+
+	std::cout << std::endl;
+
+	// Print columns/rows back to user to verify
+	std::cout << "You entered " << columns << " column(s) and " << rows << " row(s)." << std::endl;
+
+	// Create a new matrix with specified columns/rows
+	Matrix matrix3 = Matrix(columns, rows);
+
+	// Prompt the user for matrix values, will prompt rows*columns times
+	std::cout << "Enter the matrix values separated by line breaks (press ENTER after each value): " << std::endl;
+	std::cout << "**values will fill rows from left to right, and columns from top to bottom**" << std::endl;
+
+	// Error checking for input values (makes sure values are integers)
+	bool valid = false;
+
+	while (!valid)
+	{
+		valid = true;
+
+		std::cout << "Enter an integer value: " << std::endl;
+		// Take in the matrix values
+		std::cin >> matrix3;
+
+		// If cin.fail(), that means the user did not enter an integer. Try to gather the values over again
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore();
+			std::cout << "Please enter integer values only. Please start again from the beginning." << std::endl;
+			valid = false;
+		}
+	}
+
+	std::cout << std::endl;
+
+	// Print the matrix back to the user in row/column form
+	std::cout << "The matrix you entered:" << std::endl;
+
+	std::cout << matrix3 << std::endl;
+	
+	// Finished!
+	std::cout << "Done!";
 
 	return 0;
 }

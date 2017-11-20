@@ -19,14 +19,14 @@ __The Matrix class must also have the following member functions:__
 7. [x] The method for the addition of one matrix object to another add(Matrix a) that receives a Matrix object a and adds it to the implicit object and returns another Matrix object. Include exceptions if matrices cannot be added ( e.g. in the case of incompatible types or dimensions)
 8. [x] The method multiply( Matrix a) that receives a Matrix object and multiplies it to the implicit object and returns another Matrix object. Include exceptions if matrices cannot be multiplies (incompatible dimensions). An algorithm for matrix multiplication is given on page 205 of your textbook.
 9. [x] Overload the out stream operator “<<” for the Matrix class to display a Matrix Object
-10. [ ] Overload the in stream operator “>>” for the Matrix class to receive elements for a Matrix object.
+10. [x] Overload the in stream operator “>>” for the Matrix class to receive elements for a Matrix object.
 11. [x] Make proper use of const and references.
 
 __Write a main(…) method to text the Matrix class. The main(…) method must include:__
 1. [x] Declare two 3x3 matrices.
 2. [x] Test setElement() and getElement() methods
 3. [x] Test the exceptions by using invalid parameters
-4. [x] Use the operator “<<”to print both matrices.
-5. [ ] Use the operator “>>” change the values of one of the matrices. Print the new matrix.
+4. [x] Use the operator “<<” to print both matrices.
+5. [x] Use the operator “>>” change the values of one of the matrices. Print the new matrix.
 6. [x] Call the add method and display the result.
 7. [x] Call the multiply method and display the result.

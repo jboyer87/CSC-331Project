@@ -68,7 +68,7 @@ void Matrix::setElement(int rowPosition, int columnPosition, int newValue)
 	_data[position] = newValue;
 };
 
-// Displays the matrix object in grid form
+// Displays the matrix in row/column form
 void Matrix::display()
 {
 	for (int i = 0; i <= _rows - 1; i++)
@@ -147,6 +147,7 @@ Matrix Matrix::multiply(Matrix &inputMatrix)
 	return *temp;
 }
 
+// Displays a matrix in row/column form
 std::ostream& operator<<(std::ostream& outputStream, Matrix& matrix)
 {
 	outputStream << "";
@@ -176,7 +177,13 @@ std::ostream& operator<<(std::ostream& outputStream, Matrix& matrix)
 	return outputStream;
 }
 
+// Takes a matrix object as input
 std::istream& operator>>(std::istream& inputStream, Matrix& matrix)
 {
+	for (int i = 0; i < matrix._rows * matrix._columns; ++i)
+	{
+		inputStream >> matrix._data[i];
+	}
+	
 	return inputStream;
 }
