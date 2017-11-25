@@ -7,10 +7,14 @@ int main() {
 	// additional constructur with parameters to specify a 3x3 matrix.
 
 	// First 3x3 matrix using default constructor
-	Matrix matrix1;
+	Matrix<int> matrix1;
 
 	// Second 3x3 matrix using constructor with parameters for column/row
-	Matrix matrix2 = Matrix(3, 3);
+	Matrix<int> matrix2 = Matrix<int>(3, 3);
+	
+	// Testing float/doubles
+	Matrix<double> doubleMatrix;
+	Matrix<float> floatMatrix;
 
 	// Testing get and set methods. First, get element, then set it to something new,
 	// then get the same element again to show that it has changed.
@@ -100,7 +104,7 @@ int main() {
 	std::cout << "You entered " << columns << " column(s) and " << rows << " row(s)." << std::endl;
 
 	// Create a new matrix with specified columns/rows
-	Matrix matrix3 = Matrix(columns, rows);
+	Matrix<int> matrix3 = Matrix<int>(columns, rows);
 
 	// Prompt the user for matrix values, will prompt rows*columns times
 	std::cout << "Enter the matrix values separated by line breaks (press ENTER after each value): " << std::endl;
