@@ -64,19 +64,29 @@ int main() {
 	// Try to add two matrices together
 	try
 	{
-		std::cout << matrix1.add(matrix2) << std::endl;
+		std::cout << matrix1.addAgain(matrix2) << std::endl;
 	}
 	catch (const std::invalid_argument &exception)
 	{
 		std::cout << "\t" << exception.what() << std::endl << std::endl;
 	}
 
-	std::cout << "Testing multiplying both matrices together..." << std::endl << std::endl;
+	Matrix<int> matrix3 = Matrix<int>(3, 3);
+	Matrix<int> matrix4 = Matrix<int>(3, 3);
+
+	// Calling overloaded cout to display both matrixes in row/column form. Program also includes a display() method
+	// that can be called with matrix1.display()
+	std::cout << "Setting up two new matrices to multiply..." << std::endl << std::endl;
+
+	std::cout << matrix3 << std::endl;
+	std::cout << matrix4 << std::endl;
+
+	std::cout << "Testing multiplying two matrices together..." << std::endl << std::endl;
 
 	// Try to multiply two matrices together
 	try
 	{
-		std::cout << matrix1.multiply(matrix2) << std::endl;
+		std::cout << matrix3.multiply(matrix4) << std::endl;
 	}
 	catch (const std::invalid_argument &exception)
 	{
@@ -104,7 +114,7 @@ int main() {
 	std::cout << "You entered " << columns << " column(s) and " << rows << " row(s)." << std::endl;
 
 	// Create a new matrix with specified columns/rows
-	Matrix<int> matrix3 = Matrix<int>(columns, rows);
+	Matrix<int> matrix5 = Matrix<int>(columns, rows);
 
 	// Prompt the user for matrix values, will prompt rows*columns times
 	std::cout << "Enter the matrix values separated by line breaks (press ENTER after each value): " << std::endl;
@@ -119,7 +129,7 @@ int main() {
 
 		std::cout << "Enter an integer value: " << std::endl;
 		// Take in the matrix values
-		std::cin >> matrix3;
+		std::cin >> matrix5;
 
 		// If cin.fail(), that means the user did not enter an integer. Try to gather the values over again
 		if (std::cin.fail())
@@ -136,7 +146,7 @@ int main() {
 	// Print the matrix back to the user in row/column form
 	std::cout << "The matrix you entered:" << std::endl;
 
-	std::cout << matrix3 << std::endl;
+	std::cout << matrix5 << std::endl;
 	
 	// Finished!
 	std::cout << "Done!";

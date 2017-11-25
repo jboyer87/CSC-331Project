@@ -12,24 +12,26 @@ public:
 
 	virtual ~Matrix();
 
-	int Matrix::getRows()
+	const int Matrix::getRows()
 	{
 		return _rows;
 	}
 
-	int Matrix::getColumns()
+	const int Matrix::getColumns()
 	{
 		return _columns;
 	}
 
-	const T Matrix::getElement(int rowPosition, int columnPosition);
+	const T Matrix::getElement(const int rowPosition, const int columnPosition);
 
-	void Matrix::setElement(int rowPosition, int columnPosition, T newValue);
+	void Matrix::setElement(const int rowPosition, const int columnPosition, const T newValue);
 
-	void Matrix::display();
+	void const Matrix::display();
 
-	Matrix<T> add(Matrix &matrix);
+	Matrix<T> add(const Matrix &matrix);
+	Matrix<T> addAgain(Matrix &inputMatrix);
 	Matrix<T> multiply(Matrix &matrix);
+	Matrix<T> multiplyAgain(Matrix &inputMatrix);
 
 	template <typename T>
 	friend std::ostream& operator<<(std::ostream& outputStream, Matrix<T>& matrix);
@@ -37,10 +39,10 @@ public:
 	friend std::istream& operator>>(std::istream& inputStream, Matrix<T>& matrix);
 
 private:
-	int _columns;
-	int _rows;
+	int _columns = 0;
+	int _rows = 0;
 
-	T* _data;
+	T* _data = nullptr;
 
 	void Matrix::initializeMatrixData();
 };
@@ -74,7 +76,10 @@ Matrix<T>::Matrix(int columns, int rows)
 template<typename T>
 Matrix<T>::~Matrix()
 {
-	delete[] _data;
+	if (_data != nullptr)
+	{
+		delete[] _data;
+	}
 };
 
 // Function to initialize the matrix data with random integers between 0 and 10.
@@ -94,7 +99,7 @@ void Matrix<T>::initializeMatrixData()
 
 // Returns element value for a given row/column.
 template<typename T>
-const T Matrix<T>::getElement(int rowPosition, int columnPosition)
+const T Matrix<T>::getElement(const int rowPosition, const int columnPosition)
 {
 	if (rowPosition > _rows || columnPosition > _columns)
 	{
@@ -108,7 +113,7 @@ const T Matrix<T>::getElement(int rowPosition, int columnPosition)
 
 // Sets the element at the given row/column position to the new value
 template<typename T>
-void Matrix<T>::setElement(int rowPosition, int columnPosition, T newValue)
+void Matrix<T>::setElement(const int rowPosition, const int columnPosition, const T newValue)
 {
 	if (rowPosition > _rows || columnPosition > _columns)
 	{
@@ -122,7 +127,7 @@ void Matrix<T>::setElement(int rowPosition, int columnPosition, T newValue)
 
 // Displays the matrix in row/column form
 template<typename T>
-void Matrix<T>::display()
+void const Matrix<T>::display()
 {
 	for (int i = 0; i <= _rows - 1; i++)
 	{
@@ -149,7 +154,7 @@ void Matrix<T>::display()
 
 // Adds one matrix to another and returns the result
 template<typename T>
-Matrix<T> Matrix<T>::add(Matrix &inputMatrix)
+Matrix<T> Matrix<T>::add(const Matrix &inputMatrix)
 {
 	// Make sure they are the same size and throw an exception if not
 	if (_rows != inputMatrix._rows || _columns != inputMatrix._columns)
@@ -169,6 +174,27 @@ Matrix<T> Matrix<T>::add(Matrix &inputMatrix)
 	}
 
 	return *temp;
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::addAgain(Matrix &inputMatrix)
+{
+	// Make sure they are the same size and throw an exception if not
+	if (_rows != inputMatrix._rows || _columns != inputMatrix._columns)
+	{
+		throw std::invalid_argument("The number of rows and columns between matrix objects must be equal.");
+	}
+
+	for (int i = 0; i < _rows; i++)
+	{
+		for (int j = 0; j < _columns; j++)
+		{
+			// Add the two integers and stuff it into the matrix at the correct position
+			this->setElement(i, j, (this->getElement(i, j) + inputMatrix.getElement(i, j)));
+		}
+	}
+
+	return *this;
 }
 
 // Multiplies one matrix by another and returns the result
@@ -200,6 +226,34 @@ Matrix<T> Matrix<T>::multiply(Matrix &inputMatrix)
 	}
 
 	return *temp;
+}
+
+// Multiplies one matrix by another and returns the result
+template<typename T>
+Matrix<T> Matrix<T>::multiplyAgain(Matrix &inputMatrix)
+{
+	// Make sure they are able to be multiplied and throw an exception if not
+	if (_columns != inputMatrix._rows)
+	{
+		throw std::invalid_argument("The number of columns in the first matrix must match the number of rows in the second matrix.");
+	}
+
+	for (int i = 0; i < this->_rows; i++)
+	{
+		for (int j = 0; j < inputMatrix._columns; j++)
+		{
+			int sum = 0;
+
+			for (int k = 0; k < inputMatrix._rows; k++)
+			{
+				sum += this->getElement(i, k) * inputMatrix.getElement(k, j);
+			}
+
+			this->setElement(i, j, (sum));
+		}
+	}
+
+	return *this;
 }
 
 // Displays a matrix in row/column form
