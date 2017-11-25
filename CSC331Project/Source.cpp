@@ -64,7 +64,9 @@ int main() {
 	// Try to add two matrices together
 	try
 	{
-		std::cout << matrix1.addAgain(matrix2) << std::endl;
+		Matrix<int> matrixAdd;
+		matrixAdd = matrix1.addAgain(matrix2);
+		std::cout << matrixAdd << std::endl;
 	}
 	catch (const std::invalid_argument &exception)
 	{
@@ -86,13 +88,14 @@ int main() {
 	// Try to multiply two matrices together
 	try
 	{
-		std::cout << matrix3.multiply(matrix4) << std::endl;
+		Matrix<int> matrixMultiply;
+		matrixMultiply = matrix3.multiplyAgain(matrix4);
+		std::cout << matrixMultiply << std::endl;
 	}
 	catch (const std::invalid_argument &exception)
 	{
 		std::cout << "\t" << exception.what() << std::endl << std::endl;
 	}
-
 
 	// Create a matrix from user input
 	std::cout << "Now let's create a matrix." << std::endl << std::endl;

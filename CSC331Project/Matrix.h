@@ -12,6 +12,10 @@ public:
 
 	virtual ~Matrix();
 
+	Matrix& Matrix::operator=(const Matrix& that);
+
+	Matrix(const Matrix& that);
+
 	const int Matrix::getRows()
 	{
 		return _rows;
@@ -22,7 +26,7 @@ public:
 		return _columns;
 	}
 
-	const T Matrix::getElement(const int rowPosition, const int columnPosition);
+	const T& Matrix::getElement(const int rowPosition, const int columnPosition);
 
 	void Matrix::setElement(const int rowPosition, const int columnPosition, const T newValue);
 
@@ -31,6 +35,7 @@ public:
 	Matrix<T> add(const Matrix &matrix);
 	Matrix<T> addAgain(Matrix &inputMatrix);
 	Matrix<T> multiply(Matrix &matrix);
+	//Matrix<T> multiplyAgain(Matrix &inputMatrix);
 	Matrix<T> multiplyAgain(Matrix &inputMatrix);
 
 	template <typename T>
@@ -82,6 +87,31 @@ Matrix<T>::~Matrix()
 	}
 };
 
+template<typename T>
+Matrix<T>&
+Matrix<T>::operator=(const Matrix& that)
+{
+	for (int i = 0; i < _rows * _columns; i++)
+	{
+		(*this)._data[i] = that._data[i];
+	}
+
+	return *this;
+}
+
+template<typename T>
+Matrix<T>::Matrix(const Matrix& that)
+{
+	_rows = that._rows;
+	_columns = that._columns;
+	_data = new T[_rows * _columns];
+
+	for (int i = 0; i < _rows * _columns; i++)
+	{	
+		(*this)._data[i] = that._data[i];
+	}
+}
+
 // Function to initialize the matrix data with random integers between 0 and 10.
 template<typename T>
 void Matrix<T>::initializeMatrixData()
@@ -99,7 +129,7 @@ void Matrix<T>::initializeMatrixData()
 
 // Returns element value for a given row/column.
 template<typename T>
-const T Matrix<T>::getElement(const int rowPosition, const int columnPosition)
+const T& Matrix<T>::getElement(const int rowPosition, const int columnPosition)
 {
 	if (rowPosition > _rows || columnPosition > _columns)
 	{
@@ -185,16 +215,18 @@ Matrix<T> Matrix<T>::addAgain(Matrix &inputMatrix)
 		throw std::invalid_argument("The number of rows and columns between matrix objects must be equal.");
 	}
 
+	Matrix<T> matrixToReturn(this->_rows, this->_columns);
+
 	for (int i = 0; i < _rows; i++)
 	{
 		for (int j = 0; j < _columns; j++)
 		{
 			// Add the two integers and stuff it into the matrix at the correct position
-			this->setElement(i, j, (this->getElement(i, j) + inputMatrix.getElement(i, j)));
+			matrixToReturn.setElement(i, j, (this->getElement(i, j) + inputMatrix.getElement(i, j)));
 		}
 	}
 
-	return *this;
+	return matrixToReturn;
 }
 
 // Multiplies one matrix by another and returns the result
@@ -230,6 +262,7 @@ Matrix<T> Matrix<T>::multiply(Matrix &inputMatrix)
 
 // Multiplies one matrix by another and returns the result
 template<typename T>
+//Matrix<T> Matrix<T>::multiplyAgain(Matrix &inputMatrix)
 Matrix<T> Matrix<T>::multiplyAgain(Matrix &inputMatrix)
 {
 	// Make sure they are able to be multiplied and throw an exception if not
@@ -237,6 +270,10 @@ Matrix<T> Matrix<T>::multiplyAgain(Matrix &inputMatrix)
 	{
 		throw std::invalid_argument("The number of columns in the first matrix must match the number of rows in the second matrix.");
 	}
+
+
+
+	Matrix<T> matrixToReturn(inputMatrix._columns, this->_rows);
 
 	for (int i = 0; i < this->_rows; i++)
 	{
@@ -246,14 +283,17 @@ Matrix<T> Matrix<T>::multiplyAgain(Matrix &inputMatrix)
 
 			for (int k = 0; k < inputMatrix._rows; k++)
 			{
-				sum += this->getElement(i, k) * inputMatrix.getElement(k, j);
+				T value1 = this->getElement(i, k);
+				T value2 = inputMatrix.getElement(k, j);
+
+				sum += value1 * value2;
 			}
 
-			this->setElement(i, j, (sum));
+			matrixToReturn.setElement(i, j, (sum));
 		}
 	}
 
-	return *this;
+	return matrixToReturn;
 }
 
 // Displays a matrix in row/column form
